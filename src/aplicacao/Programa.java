@@ -11,9 +11,10 @@
 package aplicacao;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -41,22 +42,36 @@ public class Programa
 				String item[] = line.split(",");
 				
 				String nome = item[0];
-				double preco = Double.parseDouble(item[1]);
-				int quantidade = Integer.parseInt(item[2]);
+				Double preco = Double.parseDouble(item[1]);
+				Integer quantidade = Integer.parseInt(item[2]);
 				
 				listItens.add(new Itens(nome, preco, quantidade));
 				
-				System.out.println(line);
+				
 				line = br.readLine();
+			}
+			System.out.println(lerArquivo +" Arquivo lido com sucesso!");
+			String escreverArquivo = "C:\\WorkSpace\\eclipse\\LendoArquivoCSV\\arquivos\\out.csv";
+			
+			try(BufferedWriter bw = new BufferedWriter(new FileWriter(escreverArquivo)))
+			{
+				for(Itens list: listItens) 
+				{
+					bw.write(list.getNome()+","+list.total());
+					System.out.println(list.getNome()+","+list.total());
+					bw.newLine();
+				}
+				System.out.println(escreverArquivo +" Arquivo Criado!");
+			}catch(IOException erro) {
+				System.out.println("Erro na Escrita: "+erro.getMessage());
 			}
 		}
 		catch(IOException erro)
 		{
-			System.out.println("Erro: "+ erro.getMessage());
+			System.out.println("Erro na Leitura: "+ erro.getMessage());
 		}
 		
 		
-						
 		//sc.close();
 	}
 }

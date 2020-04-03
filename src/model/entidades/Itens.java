@@ -42,7 +42,7 @@ public class Itens
 		this.quantidade = quantidade;
 	}
 	
-	public Double total(Double preco, Integer quantidade) {
+	public Double total() {
 		return preco * quantidade;
 	}
 	
